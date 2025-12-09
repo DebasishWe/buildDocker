@@ -1,0 +1,67 @@
+
+[mysqld]
+
+# Make the server run in UTC timezone
+default_time_zone = UTC
+
+# Make sure InnoDB is the default storage engine for new objects
+default_storage_engine = InnoDB
+
+# Use utf-8 as the default character set
+#character-set-server=utf8
+
+# Set the limit on size of blobs
+max_allowed_packet = 25M
+
+thread_cache_size = 20
+
+# Set this to 2.2x the number configured for your web apps as you will often have multiple
+# java processes with the same hibernate config running concurrently when testing
+# see "dataSource" bean in applicationContext.xml
+max_connections   = 220
+
+# The following variable controls the number of outstanding connection requests MySQL can have.
+# This comes into play when the main MySQL thread gets very many connection requests in a very
+# short time. It then takes some time (although very little) for the main thread to check the
+# connection and start a new thread.
+# The back_log value indicates how many requests can be stacked during this short time
+# before MySQL momentarily stops answering new requests.
+# We increase this to support a large number of connections in a short period of time, which
+# some of the performance tests require (e.g. IdGeneratorLRGTest).
+back_log=110
+
+sort_buffer_size = 1048576
+read_buffer_size = 1048576
+
+# The following settings seem to greatly help performance of innodb, especially large db imports
+# These settings are not necessarily suitable for a production deployment of mysql
+innodb_buffer_pool_size    = 500M
+innodb_log_file_size       = 200M
+innodb_log_files_in_group  = 4
+innodb_log_buffer_size     = 8M
+innodb_max_dirty_pages_pct = 10
+innodb_flush_method        = O_DIRECT
+
+# log-slow-queries = mysql-slow.log
+long-query-time  = 2
+
+# Avoid error when creating functions: ERROR 1419 (HY000): You do not have the SUPER Privilege and Binary Logging is Enabled
+log_bin_trust_function_creators = 1
+
+# Make password policy more lenient.
+# Only enable this if the mysql installation includes the password validation component, which can
+# be determined by executing the following command - if it displays output then the database
+# has the password validation feature:
+#   SHOW VARIABLES LIKE 'validate_password.%';
+#
+#validate_password.policy = LOW
+
+#
+# For development environment only
+#
+
+# Disable dedicated log writer threads
+innodb_log_writer_threads = OFF
+
+# Disable binary logging
+disable_log_bin
