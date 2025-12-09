@@ -13,8 +13,8 @@ jobs:
         id: setup-docker
         uses: douglascamata/setup-docker-macos-action@v1.0.1
         with:
-          lima: latest
-          colima: latest
+          lima: v1.2.1
+          colima: v0.9.1
           colima-network-address: false
       - name: docker login
         run: docker login -u debweassemble -p ${{ secrets.DOCKER_HUB_TOKEN }}
