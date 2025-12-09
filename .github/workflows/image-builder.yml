@@ -19,6 +19,6 @@ jobs:
       - name: docker login
         run: docker login -u debweassemble -p ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --squash --tag debweassemble/installed_ubuntu:test1
+        run: docker build . --file Dockerfile --tag debweassemble/installed_ubuntu:test1
       - name: publish docker image to hub
         run: docker push debweassemble/spm-devtools:latest
